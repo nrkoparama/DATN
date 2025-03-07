@@ -6,6 +6,7 @@ import {Field, Form, Formik} from "formik";
 import {Eye, EyeClosed} from 'lucide-react';
 
 import ButtonLogin from "../../components/socialLoginButton/btnLogin";
+import type User from "../../models/User"
 
 export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
@@ -23,10 +24,10 @@ export default function Login() {
             .required("* Vui lòng nhập mật khẩu"),
     });
 
-    const handleSubmit = async (values: any) => {
+    const handleSubmit = async (values: User) => {
         const {email, password} = values;
         const data = {email, password};
-        const response = await fetch("http://localhost:3000/users", {
+        await fetch("http://localhost:3000/users", {
             method: "POST",
             headers: {"content-type": "application/json"},
             body: JSON.stringify(data),
@@ -47,8 +48,14 @@ export default function Login() {
                     <p className={`text-2xl text-center font-medium`}>Đăng nhập</p>
                     <Formik
                         initialValues={{
-                            email: "",
+                            _id: "",
+                            name: "",
+                            phone: "",
                             password: "",
+                            email: "",
+                            zipcode: 0,
+                            address: "",
+                         
                         }}
                         validationSchema={validationSchema}
                         onSubmit={handleSubmit}
@@ -72,6 +79,7 @@ export default function Login() {
                                     </div>
 
                                     <div className="w-full">
+                                        
                                         <div className={`flex text-sm justify-between items-center`}>
                                             <label htmlFor="password" className={`block my-1`}>Mật khẩu</label>
                                             <Link href={`/pages/setPassword`} className={` text-center text-[#034292]`}>

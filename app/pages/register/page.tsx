@@ -6,6 +6,10 @@ import { Field, Form, Formik } from "formik";
 import { Eye, EyeClosed } from "lucide-react";
 
 import ButtonLogin from "../../components/socialLoginButton/btnLogin";
+import type User from "../../models/User";
+interface RegisterFormValues extends User {
+  rePassword: string;
+}
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,10 +35,10 @@ export default function Register() {
       .oneOf([Yup.ref("password")], "* Mật khẩu không khớp")
       .required("* Vui lòng nhập lại mật khẩu"),
   });
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async (values: Omit<User, "rePassword">) => {
     const { email, phone, password } = values;
     const data = { email, phone, password };
-    const response = await fetch("http://localhost:3000/users", {
+    await fetch("http://localhost:3000/users", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),
@@ -54,11 +58,15 @@ export default function Register() {
           className={`form-shadow w-full bg-[#fff] px-8 py-6 rounded-lg flex flex-col gap-2`}
         >
           <p className={`text-2xl text-center font-medium`}>Đăng ký</p>
-          <Formik
+          <Formik<RegisterFormValues>
             initialValues={{
-              email: "",
+              _id: "",
+              name: "",
               phone: "",
               password: "",
+              email: "",
+              zipcode: 0,
+              address: "",
               rePassword: "",
             }}
             validationSchema={validationSchema}
