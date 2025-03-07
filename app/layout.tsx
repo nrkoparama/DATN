@@ -1,6 +1,6 @@
 import "./globals.css";
 import {getServerSession} from "next-auth";
-import {authOptions} from "@/app/api/auth/[...nextauth]/route"; // File chứa config auth
+import { authOptions } from "@/app/api/auth/authOptions";// File chứa config auth
 import SessionProviderWrapper from "../app/components/provider/sessionProvider"; // Import provider
 import ReduxProviders from "../app/components/provider/reduxProvider"; 
 import Header from "./components/header";
