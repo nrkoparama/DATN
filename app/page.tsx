@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import useSWR from "swr";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -41,9 +42,11 @@ export default function Home() {
             key={product._id}
             className="w-[20%] bg-[#fff] rounded-lg mx-auto my-[8px] p-[14px] hover:shadow-lg flex flex-col space-y-[8px]"
           >
-            <img
+            <Image
               src={`/assets/images/${product.image}`}
-              alt=""
+              alt={`${product.name}`}
+              width={200}
+              height={200}
               className="rounded"
             />
             <p>{product.name}</p>
