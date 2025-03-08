@@ -82,7 +82,7 @@ export default function Login() {
                                         
                                         <div className={`flex text-sm justify-between items-center`}>
                                             <label htmlFor="password" className={`block my-1`}>Mật khẩu</label>
-                                            <Link href={`/pages/setPassword`} className={` text-center text-[#034292]`}>
+                                            <Link href={`/`} className={` text-center text-[#034292]`}>
                                                 Quên mật khẩu ?
                                             </Link>
                                         </div>
