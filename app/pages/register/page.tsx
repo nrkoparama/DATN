@@ -43,7 +43,7 @@ export default function Register() {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),
     })
-      .then((res) => res.json())
+      .then((res) =>res.ok ? res.json(): alert("Đăng ký thất bại"))
       .then((data) => {
         alert(data.message);
       })
