@@ -39,7 +39,7 @@ export default function Login() {
             .catch((error) => alert("Error:" + error));
     };
     return (
-        <div className={`bg-[#fbfcfd] tracking-wider py-[100px]`}>
+        <div className={`bg-[#fbfcfd] tracking-wider py-[120px]`}>
             <div className={`w-[30%] mx-auto flex flex-col items-center gap-4`}>
                 <p className={`text-3xl text-[#034292] font-bold uppercase`}>
                     halo store

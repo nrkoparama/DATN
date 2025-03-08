@@ -36,15 +36,16 @@ export default function Register() {
       .required("* Vui lòng nhập lại mật khẩu"),
   });
   const handleSubmit = async (values: Omit<User, "rePassword">) => {
-    const { email, phone, password } = values;
-    const data = { email, phone, password };
+    const { name, phone, password, email, address, zipcode, role } = values;
+    const data = { name, phone, password, email, address, zipcode, role };
     await fetch("http://localhost:3000/users", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),
     })
-      .then(() => {
-        console.log("User: ", data);
+      .then((res) => res.json())
+      .then((data) => {
+        alert(data.message);
       })
       .catch((error) => alert("Error:" + error));
   };
@@ -60,13 +61,13 @@ export default function Register() {
           <p className={`text-2xl text-center font-medium`}>Đăng ký</p>
           <Formik<RegisterFormValues>
             initialValues={{
-              _id: "",
               name: "",
               phone: "",
               password: "",
               email: "",
-              zipcode: 0,
               address: "",
+              zipcode: 0,
+              role: 0,
               rePassword: "",
             }}
             validationSchema={validationSchema}
@@ -75,6 +76,60 @@ export default function Register() {
             {({ errors, touched }) => (
               <div className={`w-full`}>
                 <Form className="flex flex-col items-center gap-2">
+
+                  {/* name */}
+                  <div className="w-full hidden">
+                    <label htmlFor="name" className={`block my-1`}>
+                      Name
+                    </label>
+                    <Field
+                      name="name"
+                      id="name"
+                      type="text"
+                      placeholder=""
+                      className="w-full text-sm px-3 py-2 border border-gray-300 focus:outline-none rounded"
+                    />
+                  </div>
+                  {/* address */}
+                  <div className="w-full hidden">
+                    <label htmlFor="address" className={`block my-1`}>
+                      Address
+                    </label>
+                    <Field
+                      name="address"
+                      id="address"
+                      type="text"
+                      placeholder=""
+                      className="w-full text-sm px-3 py-2 border border-gray-300 focus:outline-none rounded"
+                    />
+                  </div>
+                  {/* zipcode */}
+                  <div className="w-full hidden">
+                    <label htmlFor="zipcode" className={`block my-1`}>
+                      Zipcode
+                    </label>
+                    <Field
+                      name="zipcode"
+                      id="zipdode"
+                      type="number"
+                      placeholder=""
+                      className="w-full text-sm px-3 py-2 border border-gray-300 focus:outline-none rounded"
+                    />
+                  </div>
+                  {/* role */}
+                  <div className="w-full hidden">
+                    <label htmlFor="role" className={`block my-1`}>
+                      Role
+                    </label>
+                    <Field
+                      name="role"
+                      id="role"
+                      type="number"
+                      placeholder=""
+                      className="w-full text-sm px-3 py-2 border border-gray-300 focus:outline-none rounded"
+                    />
+                  </div>
+                  {/* email */}
                   <div className="w-full">
                     <label htmlFor="email" className={`block my-1`}>
                       Email
@@ -92,7 +147,7 @@ export default function Register() {
                       </div>
                     ) : null}
                   </div>
-
+                  {/* phone */}
                   <div className="w-full">
                     <label htmlFor="phone" className={`block my-1`}>
                       Số điện thoại
@@ -110,7 +165,7 @@ export default function Register() {
                       </div>
                     ) : null}
                   </div>
-
+                  {/* password */}
                   <div className="w-full">
                     <label htmlFor="password" className={`block my-1`}>
                       Mật khẩu
@@ -140,7 +195,7 @@ export default function Register() {
                       </div>
                     </div>
                   </div>
-
+                  {/* rePassword */}
                   <div className="w-full">
                     <label htmlFor="rePassword" className={`block my-1`}>
                       Nhập lại mật khẩu
@@ -170,7 +225,6 @@ export default function Register() {
                       </div>
                     </div>
                   </div>
-
                   {/*confirm terms*/}
                   <div className={`w-full mt-2`}>
                     <div className={`flex justify-between items-start`}>
@@ -183,9 +237,9 @@ export default function Register() {
                         htmlFor={`confirmTerms`}
                         className={`text-xs ml-2 cursor-pointer`}
                       >
-                        Tôi đã đọc, hiểu và đồng ý với{" "}
+                        Tôi đồng ý với{" "}
                         <Link
-                          href={`/pages/terms`}
+                          href={`/pages/privacy`}
                           className={`font-semibold hover:text-[#034292] underline`}
                         >
                           Chính sách bảo mật và Điều khoản sử dụng
@@ -194,7 +248,6 @@ export default function Register() {
                       </label>
                     </div>
                   </div>
-
                   {/*button submit*/}
                   <button
                     type={`submit`}
