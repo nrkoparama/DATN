@@ -45,6 +45,7 @@ export default function Register() {
     })
       .then((res) =>res.ok ? res.json(): alert("Đăng ký thất bại"))
       .then((data) => {
+        console.log(data);
         alert(data.message);
       })
       .catch((error) => alert("Error:" + error));
