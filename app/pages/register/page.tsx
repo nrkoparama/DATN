@@ -38,17 +38,17 @@ export default function Register() {
   const handleSubmit = async (values: Omit<User, "rePassword">) => {
     const { name, phone, password, email, address, zipcode, role } = values;
     const data = { name, phone, password, email, address, zipcode, role };
-    await fetch("http://localhost:3000/users", {
+    await fetch("http://localhost:3000/users/register", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),
     })
-      .then((res) =>res.ok ? res.json(): alert("Đăng ký thất bại"))
+      .then((res) => res.json())
       .then((data) => {
         console.log(data);
         alert(data.message);
       })
-      .catch((error) => alert("Error:" + error));
+      .catch((error) => console.log("Lỗi đăng ký:" + error));
   };
   return (
     <div className={`bg-[#fbfcfd] tracking-wider py-4`}>
@@ -77,7 +77,6 @@ export default function Register() {
             {({ errors, touched }) => (
               <div className={`w-full`}>
                 <Form className="flex flex-col items-center gap-2">
-
                   {/* name */}
                   <div className="w-full hidden">
                     <label htmlFor="name" className={`block my-1`}>
