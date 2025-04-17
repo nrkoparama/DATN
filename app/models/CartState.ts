@@ -1,9 +1,13 @@
-import Product from "@/app/models/Product";
+import {ProductCart} from "@/app/models/Product";
 
-interface CartState {
+export interface CartState {
     cart: {
-        products: Product[];
+        products: ProductCart[];
     };
 }
 
-export default CartState;
+export interface CheckoutState {
+    checkout: {
+        products: ProductCart[];
+    }
+}
